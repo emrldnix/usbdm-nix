@@ -28,12 +28,23 @@
       };
 
       perSystem =
-        { pkgs, ... }:
+        { pkgs, system, lib, ... }:
         let
           usbdm = pkgs.callPackage ./pkgs/usbdm { };
         in
         {
-          formatter = pkgs.nixfmt-rfc-style;
+          _module.args.pkgs = import inputs.nixpkgs {
+            inherit system;
+            overlays = lib.optionals (system == "i686-linux") [
+              (final: prev: {
+                spidermonkey_140 = prev.spidermonkey_140.overrideAttrs {
+                  env.NIX_CFLAGS_COMPILE = "-Wno-error=format -Wno-error=format-security";
+                };
+              })
+            ];
+          };
+
+          formatter = pkgs.nixfmt;
 
           packages = {
             default = usbdm;

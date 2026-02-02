@@ -6,25 +6,25 @@
   libusb1,
   xercesc,
   tcl,
-  wrapGAppsHook,
+  wrapGAppsHook3,
   jdk ? null,
   javaSupport ? false,
 }:
 
 stdenv.mkDerivation {
   pname = "usbdm";
-  version = "4.12.1.345-unstable-2025-04-17";
+  version = "4.12.1.345-unstable-2025-12-30";
 
   src = fetchFromGitHub {
     owner = "podonoghue";
     repo = "usbdm-eclipse-makefiles-build";
-    rev = "ec3fc342ae216cacfd43947c7785936bed9d42ee";
-    hash = "sha256-/tSAAuT94FYSZBbi3FcgH5R4DYeyhrIgsBjttY8hQx0=";
+    rev = "e01df4242899336a7c1a4b2be0f87af36cd75377";
+    hash = "sha256-Gq3ugK1SnG6Y/mits2HuQIgnFWeJjMrRxS6uQy+/lT0=";
   };
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [ wrapGAppsHook ];
+  nativeBuildInputs = [ wrapGAppsHook3 ];
 
   buildInputs = [
     wxGTK32
